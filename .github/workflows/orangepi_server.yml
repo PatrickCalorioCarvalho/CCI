@@ -1,0 +1,13 @@
+name: workflow-orangepi
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build_server:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run a one-line script
+        run: python3 CCI_Server/server.py
