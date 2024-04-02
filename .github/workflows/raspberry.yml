@@ -1,0 +1,20 @@
+name: workflow-raspberry
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build_server:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v3
+      - name: Instalar Dependencias Python
+        run: pip install -r CCI_Server/requirements.txt
+      - name: Verrificar Migration
+        run: python CCI_Server/manage.py migrate
+      - name: Iniciar Servidor Api
+        run: python CCI_Server/manage.py runserver
+
+
+        
