@@ -1,117 +1,116 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
-import React from 'react';
-import type {PropsWithChildren} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
+  Image,
+  KeyboardAvoidingView,
   Text,
-  useColorScheme,
+  TextInput,
+  TouchableOpacity,
   View,
+  StyleSheet,
+  Animated,
 } from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
-
 function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+  const [offset] = useState(new Animated.ValueXY({x: 0, y: 80}));
+  const [opacity] = useState(new Animated.Value(0));
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+  useEffect(() => {
+    return Animated.parallel([
+      Animated.spring(offset.y, {
+        toValue: 0,
+        speed: 4,
+        bounciness: 20,
+        useNativeDriver: false,
+      }),
+      Animated.timing(opacity, {
+        toValue: 1,
+        duration: 300,
+        useNativeDriver: false,
+      }),
+    ]).start();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <KeyboardAvoidingView style={styles.background}>
+      <View style={styles.containerLogo}>
+        <Image
+          style={styles.logo}
+          source={require('./src/assets/cci-logo.png')} />
+      </View>
+      <Animated.View
+        style={[
+          styles.container,
+          {opacity: opacity, transform: [{translateY: offset.y}]},
+        ]}>
+        <Text style={styles.welcome}> Seja Bem-Vindo</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Login"
+          autoCorrect={false}
+          onChangeText={() => {}}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Senha"
+          autoCorrect={false}
+          onChangeText={() => {}}
+        />
+        <TouchableOpacity style={styles.btnSubmit}>
+          <Text>Acessar</Text>
+        </TouchableOpacity>
+      </Animated.View>
+    </KeyboardAvoidingView>
   );
 }
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  background: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#F4EDE0',
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
+  containerLogo: {
+    alignItems: 'center',
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '90%',
   },
-  highlight: {
-    fontWeight: '700',
+  welcome: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 20,
+    fontSize: 30,
+    color: '#003471',
+  },
+  input: {
+    backgroundColor: '#fff',
+    width: '90%',
+    marginBottom: 20,
+    color: '#222',
+    fontSize: 17,
+    borderRadius: 20,
+    padding: 10,
+    shadowColor: '#000',
+    elevation: 20,
+  },
+  btnSubmit: {
+    backgroundColor: '#01E7BB',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: 22,
+    width: '25%',
+    height: 35,
+    borderRadius: 20,
+    color: '#003471',
+  },
+  logo: {
+    width: 300,
+    height: 120,
   },
 });
 
