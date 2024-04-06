@@ -10,9 +10,10 @@ import {
   Animated,
 } from 'react-native';
 
-function App(): React.JSX.Element {
+function SignIn({navigation}): React.JSX.Element {
   const [offset] = useState(new Animated.ValueXY({x: 0, y: 80}));
   const [opacity] = useState(new Animated.Value(0));
+
 
   useEffect(() => {
     return Animated.parallel([
@@ -31,12 +32,17 @@ function App(): React.JSX.Element {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const Submit = () => {
+    navigation.navigate('Main')
+  };
+
   return (
     <KeyboardAvoidingView style={styles.background}>
       <View style={styles.containerLogo}>
         <Image
           style={styles.logo}
-          source={require('./src/assets/cci-logo.png')} />
+          source={require('./../assets/cci-logo.png')}
+        />
       </View>
       <Animated.View
         style={[
@@ -56,7 +62,7 @@ function App(): React.JSX.Element {
           autoCorrect={false}
           onChangeText={() => {}}
         />
-        <TouchableOpacity style={styles.btnSubmit}>
+        <TouchableOpacity style={styles.btnSubmit} onPress={Submit}>
           <Text>Acessar</Text>
         </TouchableOpacity>
       </Animated.View>
@@ -114,4 +120,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+export default SignIn;
