@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Setor.apps.SetorConfig', 
     'rest_framework',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
@@ -71,7 +72,7 @@ TEMPLATES = [
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
     ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
@@ -88,7 +89,7 @@ DATABASES = {
   'default': {
     'ENGINE': 'django.db.backends.mysql',
     'NAME': 'CCI',
-    'USER': 'root',
+    'USER': 'cci_user',
     'PASSWORD': '123456',
     'HOST': 'localhost',
     'PORT': '3306',
