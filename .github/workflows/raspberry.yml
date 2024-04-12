@@ -8,13 +8,15 @@ jobs:
   build_server:
     runs-on: self-hosted
     steps:
+      - name: Stop Service
+        run: sudo systemctl stop cci_server.service
       - uses: actions/checkout@v3
       - name: Instalar Dependencias Python
         run: pip install -r CCI_Server/requirements.txt
       - name: Verrificar Migration
         run: python CCI_Server/manage.py migrate
-      - name: Iniciar Servidor Api
-        run: nohup python CCI_Server/manage.py runserver 0.0.0.0:8000 &
+      - name: Start Service
+        run: sudo systemctl start cci_server.service
         
 
 
