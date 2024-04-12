@@ -9,19 +9,19 @@ jobs:
   build-mob:
     runs-on: ubuntu-latest
     steps: 
-      - name: Atualizar Codigo
-        uses: actions/checkout@v3
+      - name: Atualizar Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.12'
 
       - name: Atualizar Java
         uses: actions/setup-java@v2
         with:
           distribution: "temurin"
           java-version: 17
-
-      - name: Atualizar Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20.12'
+          
+      - name: Atualizar Codigo
+        uses: actions/checkout@v3
 
       - name: Permissao gradlew
         run: cd CCI_Mob && cd android && chmod +x ./gradlew
