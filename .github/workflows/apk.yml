@@ -18,6 +18,11 @@ jobs:
           distribution: "temurin"
           java-version: 17
 
+      - name: Atualizar Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.12'
+
       - name: Permissao gradlew
         run: cd CCI_Mob && cd android && chmod +x ./gradlew
 
