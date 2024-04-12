@@ -9,17 +9,28 @@ jobs:
   build-mob:
     runs-on: ubuntu-latest
     steps: 
-      - uses: actions/checkout@v3
-      - name: Make gradlew executable
+      - name: Atualizar Codigo
+        uses: actions/checkout@v3
+
+      - name: Atualizar Java
+        uses: actions/setup-java@v2
+        with:
+          distribution: "temurin"
+          java-version: 17
+
+      - name: Permissao gradlew
         run: cd CCI_Mob && cd android && chmod +x ./gradlew
-      - name: Install npm dependencies
+
+      - name: Instalar Dependencias NPM
         run: |
           cd CCI_Mob && npm install
+
       - name: Build Android Release
         run: |
           cd CCI_Mob && cd android && ./gradlew assembleRelease
-      - name: Upload Artifact
+          
+      - name: Upload APK
         uses: actions/upload-artifact@v1
         with:
           name: app-release.apk
-          path: android/app/build/outputs/apk/release/
+          path: CCI_Mob/android/app/build/outputs/apk/release/
