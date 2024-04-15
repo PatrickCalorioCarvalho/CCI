@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'Setor.apps.SetorConfig', 
     'rest_framework',
     'rest_framework.authtoken',
+    'Monitor'
 ]
 
 MIDDLEWARE = [

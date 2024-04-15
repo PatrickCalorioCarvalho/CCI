@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <title>CCI_Server</title>
+  </head>
+  <body>
+    <center><h1>Monitoramento</h1></center>
+    <div class="d-flex justify-content-around flex-wrap">
+        <div class="card text-white bg-info mb-3" style="max-width: 30rem;min-width: 22rem;">
+            <h3 class="card-header bg-secondary">CPU</h3>
+            <div class="card-body">
+                <center><h1 class="card-title">{{ cpu_use }} %</h1></center>
+            </div>
+            <div class="card-footer bg-light">
+                <small class="text-muted">Porcentagem de Processador em Uso</small>
+            </div>
+        </div>
+        <div class="card text-white bg-info mb-3" style="max-width: 30rem;min-width: 22rem;">
+            <h3 class="card-header bg-secondary">Memoria</h3>
+            <div class="card-body">
+                <center><h1 class="card-title">{{ memoria_use }} GB</h1></center>
+            </div>
+            <div class="card-footer bg-light">
+                <small class="text-muted">GB de Memoria em uso</small>
+            </div>
+        </div>
+        <div class="card text-white bg-info mb-3" style="max-width: 30rem;min-width: 22rem;">
+            <h3 class="card-header bg-secondary">Disco</h3>
+            <div class="card-body">
+                <center><h1 class="card-title">{{ disco_use }} GB</h1></center>
+            </div>
+            <div class="card-footer bg-light">
+                <small class="text-muted">GB Livre em Disco /</small>
+            </div>
+        </div>
+    </div>
+        <div class="d-flex justify-content-around flex-wrap">
+        <div class="card text-white bg-info mb-3" style="max-width: 30rem;min-width: 22rem;">
+            <h3 class="card-header bg-secondary">Mysql</h3>
+            <div class="card-body">
+                <center><h1 class="card-title">{{ mysql_service }}</h1></center>
+            </div>
+            <div class="card-footer bg-light">
+                <small class="text-muted">Status Service do Mysql</small>
+            </div>
+        </div>
+        <div class="card text-white bg-info mb-3" style="max-width: 30rem;min-width: 22rem;">
+            <h3 class="card-header bg-secondary">Setor</h3>
+            <div class="card-body">
+                <center><h1 class="card-title">{{ setor_count }}</h1></center>
+            </div>
+            <div class="card-footer bg-light">
+                <small class="text-muted">Countidade de Setores Cadastrado</small>
+            </div>
+        </div>
+        <div class="card text-white bg-info mb-3" style="max-width: 30rem;min-width: 22rem;">
+            <h3 class="card-header bg-secondary">Usuario</h3>
+            <div class="card-body">
+                <center><h1 class="card-title">{{ usuario_count }}</h1></center>
+            </div>
+            <div class="card-footer bg-light">
+                <small class="text-muted">Countidade de Usuario Cadastrado</small>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh3IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  </body>
+</html>
