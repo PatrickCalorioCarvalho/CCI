@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import SignIn from './pages/SignIn';
 import Main from './pages/Main';
@@ -16,7 +16,11 @@ function App() {
           component={SignIn}
           options={{headerShown: false}}
         />
-        <Stack.Screen name="Main" component={Main} />
+        <Stack.Screen
+          name="Main"
+          component={Main}
+          options={{headerShown: false}}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -8,14 +8,20 @@ import {
   View,
   StyleSheet,
   Animated,
+  Alert,
 } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {login} from '../services/api';
 
-function SignIn({navigation}): React.JSX.Element {
+function SignIn({navigation}: {navigation: any}): React.JSX.Element {
   const [offset] = useState(new Animated.ValueXY({x: 0, y: 80}));
   const [opacity] = useState(new Animated.Value(0));
-
+  const [username, setusername] = useState('');
+  const [password, setpassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    setIsLoading(false);
     return Animated.parallel([
       Animated.spring(offset.y, {
         toValue: 0,
@@ -32,8 +38,38 @@ function SignIn({navigation}): React.JSX.Element {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const Submit = () => {
-    navigation.navigate('Main')
+  const Submit = async () => {
+    if (!username.trim() || !password.trim()) {
+      Alert.alert('Erro', 'Preencha Todos os Campos');
+      return;
+    }
+    setIsLoading(true);
+    try {
+      const response = await login.post('login/', {
+        username,
+        password,
+      });
+
+      if (response.status === 200) {
+        await AsyncStorage.setItem('my-token', response.data.token);
+        navigation.navigate('Main');
+      } else {
+        Alert.alert('Erro', 'Login e Senha Invalido!');
+        setIsLoading(false);
+      }
+    } catch (error) {
+      Alert.alert('Erro', 'Login e Senha Invalido! ' + error);
+      setIsLoading(false);
+    }
+  };
+
+  // eslint-disable-next-line @typescript-eslint/no-shadow
+  const onChangeusernameHandler = (username: string) => {
+    setusername(username);
+  };
+  // eslint-disable-next-line @typescript-eslint/no-shadow
+  const onChangepasswordHandler = (password: string) => {
+    setpassword(password);
   };
 
   return (
@@ -54,15 +90,22 @@ function SignIn({navigation}): React.JSX.Element {
           style={styles.input}
           placeholder="Login"
           autoCorrect={false}
-          onChangeText={() => {}}
+          value={username}
+          editable={!isLoading}
+          onChangeText={onChangeusernameHandler}
         />
         <TextInput
           style={styles.input}
           placeholder="Senha"
           autoCorrect={false}
-          onChangeText={() => {}}
+          value={password}
+          editable={!isLoading}
+          onChangeText={onChangepasswordHandler}
         />
-        <TouchableOpacity style={styles.btnSubmit} onPress={Submit}>
+        <TouchableOpacity
+          style={styles.btnSubmit}
+          onPress={Submit}
+          disabled={isLoading}>
           <Text>Acessar</Text>
         </TouchableOpacity>
       </Animated.View>
